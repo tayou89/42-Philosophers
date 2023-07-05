@@ -6,7 +6,7 @@
 #    By: tayou <tayou@student.42seoul.kr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/03 11:43:27 by tayou             #+#    #+#              #
-#    Updated: 2023/07/03 11:44:53 by tayou            ###   ########.fr        #
+#    Updated: 2023/07/05 15:06:27 by tayou            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,31 +17,27 @@ RM = rm
 RMFLAGS = -rf
 LIBFT = ./libft/libft.a
 LIBFT_DIR = ./libft
-COMMON_FILE = minishell \
-			  check_argc \
-			  make_initial_setting \
-			  handle_signal \
-			  get_input_and_process_data
-COMMON_SRC = $(addprefix $(COMMON_DIR)/, $(addsuffix .c, $(COMMON_FILE)))
-COMMON_OBJ = $(addprefix $(COMMON_DIR)/, $(addsuffix .o, $(COMMON_FILE)))
+FILE_NAME = philo \
+			check_exception_exist \
+			ft_atoull \
+			util
+
+SOURCE_FILE = $(addsuffix .c, $(FILE_NAME))
+OBJECT_FILE = $(addsuffix .o, $(FILE_NAME))
 
 all : $(NAME)
 
 clean : 
-	make -C $(LIBFT_DIR) fclean
-	$(RM) $(RMFLAGS) $(COMMON_OBJ)
+	$(RM) $(RMFLAGS) $(OBJECT_FILE)
 
 fclean : clean
 	$(RM) $(RMFLAGS) $(NAME)
 
 re : fclean all
 
-$(NAME) : $(LIBFT) $(COMMON_OBJ)
+$(NAME) : $(OBJECT_FILE)
 	$(CC) $(CCFLAGS) -o $(NAME) $^
 	
-$(LIBFT) : 
-	make bonus -C $(LIBFT_DIR) all
-
 %.o : %.c
 	$(CC) $(CCFLAGS) -o $@ -c $< 
 
