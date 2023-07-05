@@ -6,7 +6,7 @@
 /*   By: tayou <tayou@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 12:45:24 by tayou             #+#    #+#             */
-/*   Updated: 2023/07/05 15:12:57 by tayou            ###   ########.fr       */
+/*   Updated: 2023/07/05 22:11:08 by tayou            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,23 @@
 # include <sys/time.h>
 # include <pthread.h>
 
-# define TRUE	1
-# define FALSE	0
+# define TRUE		1
+# define FALSE		0
+
+# define THINKING	0
+# define EATING		1
+# define SLEEPING	2
+
+typedef struct s_philo
+{
+	unsigned long long	number;
+	unsigned long long	lifespan;
+	unsigned long long	eating_count;
+	unsigned long long	last_eating_time;
+	int					status;
+	struct s_philo		*left;
+	struct s_philo		*right;
+}	t_philo;
 
 typedef struct s_argv
 {
@@ -42,12 +57,17 @@ typedef struct s_data
 {
 	t_argv	argv;
 	t_flag	flag;
+	t_philo	*philo;
 }	t_data;
 
 int					check_exception_exist(int argc, char **argv, t_data *all);
 unsigned long long	ft_atoull(char *unsigned_number_string, t_data *all);
 
+int					make_philo_list(t_data *all);
+
 void				pass_white_space(char *stirng, int *i);
 int					pass_sign(char *string, int *i);
+
+void				print_data(t_data *all);
 
 #endif

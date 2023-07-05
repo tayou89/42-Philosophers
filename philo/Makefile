@@ -6,7 +6,7 @@
 #    By: tayou <tayou@student.42seoul.kr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/03 11:43:27 by tayou             #+#    #+#              #
-#    Updated: 2023/07/05 15:06:27 by tayou            ###   ########.fr        #
+#    Updated: 2023/07/05 22:05:45 by tayou            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,9 +18,10 @@ RMFLAGS = -rf
 LIBFT = ./libft/libft.a
 LIBFT_DIR = ./libft
 FILE_NAME = philo \
-			check_exception_exist \
-			ft_atoull \
-			util
+			check_exception_exist ft_atoull \
+			make_philo_list \
+			util \
+			print_data
 
 SOURCE_FILE = $(addsuffix .c, $(FILE_NAME))
 OBJECT_FILE = $(addsuffix .o, $(FILE_NAME))

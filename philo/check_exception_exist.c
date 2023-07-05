@@ -6,7 +6,7 @@
 /*   By: tayou <tayou@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 12:51:21 by tayou             #+#    #+#             */
-/*   Updated: 2023/07/05 15:08:22 by tayou            ###   ########.fr       */
+/*   Updated: 2023/07/05 22:11:28 by tayou            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	check_exception_exist(int argc, char **argv, t_data *all)
 		printf("Wrong argument count.\n");
 		return (TRUE);
 	}
-	if (check_argv_has_exception(argc, args, all) == TRUE)
+	if (check_argv_has_exception(argc, argv, all) == TRUE)
 	{
 		printf("Wrong argument.\n");
 		return (TRUE);
@@ -38,9 +38,10 @@ int	check_argv_has_exception(int argc, char **argv, t_data *all)
 		return (TRUE);
 	if (get_argv_data(argc, argv, all) == FALSE)
 		return (TRUE);
-	if (all->argv->philo_number == 0
-		|| (all->flag.eating_max_exist == TRUE && all->argv->eating_max == 0))
+	if (all->argv.philo_number == 0
+		|| (all->flag.eating_max_exist == TRUE && all->argv.eating_max == 0))
 		return (TRUE);
+	return (FALSE);
 }
 
 int	check_argv_is_positive_number(int argc, char **argv)
@@ -59,7 +60,6 @@ int	check_argv_is_positive_number(int argc, char **argv)
 
 int	check_string_is_positive_number(char *string)
 {
-	int	sign;
 	int	i;
 
 	i = 0;
@@ -87,11 +87,11 @@ int	get_argv_data(int argc, char **argv, t_data *all)
 	all->argv.sleeping_time = ft_atoull(argv[4], all);
 	if (argc == 6)
 	{
-		all->flag.eating_max_exist == TRUE;
-		all->argv.eating_max = ft_atoull(argv[5]);
+		all->flag.eating_max_exist = TRUE;
+		all->argv.eating_max = ft_atoull(argv[5], all);
 	}
 	else
-		all->flag.eating_max_exist == FALSE;
+		all->flag.eating_max_exist = FALSE;
 	if (all->flag.overflow_occur == TRUE)
 		return (FALSE);
 	else
