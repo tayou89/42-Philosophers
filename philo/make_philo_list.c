@@ -6,7 +6,7 @@
 /*   By: tayou <tayou@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 21:27:27 by tayou             #+#    #+#             */
-/*   Updated: 2023/07/05 22:12:27 by tayou            ###   ########.fr       */
+/*   Updated: 2023/07/06 12:43:46 by tayou            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,12 @@ t_philo	*make_new_philo(int i, t_data *all)
 	new_philo->eating_count = 0;
 	new_philo->last_eating_time = 0;
 	new_philo->status = THINKING;
+	new_philo->left_fork = &all->fork[i - 1];
+	if (new_philo->number == all->argv.philo_number)
+		new_philo->right_fork = &all->fork[0];
+	else
+		new_philo->right_fork = &all->fork[i];
+	new_philo->fork_count = 0;
 	new_philo->left = (void *) 0;
 	new_philo->right = (void *) 0;
 	return (new_philo);

@@ -6,7 +6,7 @@
 /*   By: tayou <tayou@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 12:45:24 by tayou             #+#    #+#             */
-/*   Updated: 2023/07/05 22:11:08 by tayou            ###   ########.fr       */
+/*   Updated: 2023/07/06 12:41:07 by tayou            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,9 @@ typedef struct s_philo
 	unsigned long long	eating_count;
 	unsigned long long	last_eating_time;
 	int					status;
+	int					*left_fork;
+	int					*right_fork;
+	int					fork_count;
 	struct s_philo		*left;
 	struct s_philo		*right;
 }	t_philo;
@@ -55,14 +58,17 @@ typedef struct s_flag
 
 typedef struct s_data
 {
-	t_argv	argv;
-	t_flag	flag;
-	t_philo	*philo;
+	t_argv			argv;
+	t_flag			flag;
+	t_philo			*philo;
+	pthread_mutex_t	mutex;
+	int				*fork;
 }	t_data;
 
 int					check_exception_exist(int argc, char **argv, t_data *all);
 unsigned long long	ft_atoull(char *unsigned_number_string, t_data *all);
 
+int					make_fork_array(t_data *all);
 int					make_philo_list(t_data *all);
 
 void				pass_white_space(char *stirng, int *i);
