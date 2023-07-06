@@ -6,7 +6,7 @@
 #    By: tayou <tayou@student.42seoul.kr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/03 11:43:27 by tayou             #+#    #+#              #
-#    Updated: 2023/07/06 12:32:01 by tayou            ###   ########.fr        #
+#    Updated: 2023/07/06 22:49:36 by tayou            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,8 @@ LIBFT = ./libft/libft.a
 LIBFT_DIR = ./libft
 FILE_NAME = philo \
 			check_exception_exist ft_atoull \
-			make_fork_array make_philo_list \
+			create_data_managed_in_main \
+			make_philo_list \
 			util \
 			print_data
 

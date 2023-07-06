@@ -7,11 +7,17 @@
 
 int	main(void)
 {
-	unsigned long long	number;
-	unsigned long long	max;
+	struct timeval	time;
+	int				i;
 
-	max = 18446744073709551615ULL;
-	number = -1;
-	printf("number: %llu\n", number);
+	gettimeofday(&time, (void *) 0);
+	printf("start_sec: %llu\n", (unsigned long long) time.tv_sec);
+	printf("start_usec: %llu\n", (unsigned long long) time.tv_usec);
+	i = 0;
+	while (i < 1000000)
+		i++;
+	gettimeofday(&time, (void *) 0);
+	printf("end_sec: %llu\n", (unsigned long long) time.tv_sec);
+	printf("end_usec: %llu\n", (unsigned long long) time.tv_usec);
 	return (0);
 }
