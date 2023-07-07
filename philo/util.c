@@ -6,7 +6,7 @@
 /*   By: tayou <tayou@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 15:01:29 by tayou             #+#    #+#             */
-/*   Updated: 2023/07/07 14:20:12 by tayou            ###   ########.fr       */
+/*   Updated: 2023/07/08 01:30:10 by tayou            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,13 +53,13 @@ unsigned long long	get_current_time(void)
 void	print_philo(unsigned long long start_time, int number, int status)
 {
 	unsigned long long	current_time;
-	unsigned long long	time;
+	unsigned long long	elapsed_time;
 	char				*status_string;
 
 	current_time = get_current_time();
 	if (current_time == FALSE)
 		return ;
-	time = current_time - start_time;
+	elapsed_time = current_time - start_time;
 	if (status == THINKING)
 		status_string = "is thinking";
 	else if (status == EATING)
@@ -68,7 +68,7 @@ void	print_philo(unsigned long long start_time, int number, int status)
 		status_string = "is sleeping";
 	else if (status == DEAD)
 		status_string = "died";
-	else if (status == TAKE_FORK)
+	else
 		status_string = "has taken a fork";
-	printf("%llu %d %s\n", time, number, status_string);
+	printf("%llu %d %s\n", elapsed_time, number, status_string);
 }

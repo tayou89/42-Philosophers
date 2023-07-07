@@ -6,7 +6,7 @@
 #    By: tayou <tayou@student.42seoul.kr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/03 11:43:27 by tayou             #+#    #+#              #
-#    Updated: 2023/07/07 12:21:01 by tayou            ###   ########.fr        #
+#    Updated: 2023/07/08 01:15:27 by tayou            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,10 +18,10 @@ RMFLAGS = -rf
 LIBFT = ./libft/libft.a
 LIBFT_DIR = ./libft
 FILE_NAME = philo \
-			check_exception_exist ft_atoull \
+			check_exception_exist ft_atoi \
 			create_data_managed_in_main \
 			make_philo_list \
-			create_philo_thread main_thread \
+			create_philo_thread ft_main_thread ft_philo_thread \
 			util \
 			free_thread \
 			print_data

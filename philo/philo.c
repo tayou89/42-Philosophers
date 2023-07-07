@@ -6,7 +6,7 @@
 /*   By: tayou <tayou@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 12:45:13 by tayou             #+#    #+#             */
-/*   Updated: 2023/07/07 13:56:36 by tayou            ###   ########.fr       */
+/*   Updated: 2023/07/08 01:19:30 by tayou            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,12 @@ int	main(int argc, char **argv)
 		return (1);
 	if (make_philo_list(&all) == FALSE)
 		return (1);
+	all.start_time = get_current_time();
+	if (all.start_time == FALSE)
+		return (1);
 	if (create_philo_thread(&all) == FALSE)
 		return (1);
-	print_data(&all);
-	system("leaks philo");
+	if (join_every_thread(&all) == FALSE)
+		return (1);
 	return (0);
 }
