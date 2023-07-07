@@ -6,7 +6,7 @@
 /*   By: tayou <tayou@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 12:45:24 by tayou             #+#    #+#             */
-/*   Updated: 2023/07/07 00:46:26 by tayou            ###   ########.fr       */
+/*   Updated: 2023/07/07 13:35:06 by tayou            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 # define THINKING	0
 # define EATING		1
 # define SLEEPING	2
+# define DEAD		3
 
 typedef struct s_philo
 {
@@ -33,6 +34,7 @@ typedef struct s_philo
 	unsigned long long	lifespan;
 	unsigned long long	*eating_count;
 	unsigned long long	*last_eating_time;
+	unsigned long long	*start_time;
 	int					status;
 	int					*left_fork;
 	int					*right_fork;
@@ -55,6 +57,7 @@ typedef struct s_flag
 {
 	int	eating_max_exist;
 	int	overflow_occur;
+	int	detach_philo_thread;
 }	t_flag;
 
 typedef struct s_data
@@ -67,8 +70,10 @@ typedef struct s_data
 	pthread_mutex_t		*mutex;
 	unsigned long long	*eating_count;
 	unsigned long long	*last_eating_time;
+	unsigned long long	start_time;
 	int					*fork;
 	int					index;
+	int					dead_philo_number;
 }	t_data;
 
 int					check_exception_exist(int argc, char **argv, t_data *all);
@@ -77,9 +82,17 @@ unsigned long long	ft_atoull(char *unsigned_number_string, t_data *all);
 int					create_data_managed_in_main(t_data *all);
 int					make_philo_list(t_data *all);
 
+int					create_philo_thread(t_data *all);
+void				*ft_main_thread(void *all);
+
+
 void				pass_white_space(char *stirng, int *i);
 int					pass_sign(char *string, int *i);
 unsigned long long	get_current_time(void);
+
+int					detach_every_philo_thread(t_data *all);
+int					join_every_thread(t_data *all);
+int					join_every_philo_thread(t_data *all);
 
 void				print_data(t_data *all);
 

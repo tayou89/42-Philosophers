@@ -5,19 +5,28 @@
 #include <stdlib.h>
 #include "philo.h"
 
+void	*count_number(void *number);
+
 int	main(void)
 {
-	struct timeval	time;
-	int				i;
+	pthread_t	thread;
+	int			number;
 
-	gettimeofday(&time, (void *) 0);
-	printf("start_sec: %llu\n", (unsigned long long) time.tv_sec);
-	printf("start_usec: %llu\n", (unsigned long long) time.tv_usec);
-	i = 0;
-	while (i < 1000000)
-		i++;
-	gettimeofday(&time, (void *) 0);
-	printf("end_sec: %llu\n", (unsigned long long) time.tv_sec);
-	printf("end_usec: %llu\n", (unsigned long long) time.tv_usec);
+	number = 0;
+	if (pthread_create(&thread, (void *) 0, count_number, &number) != 0)
+		return (1);
+	pthread_detach(thread);
+	if (pthread_join(thread, (void *) 0) != 0)
+		perror("");
 	return (0);
+}
+
+void	*count_number(void *number)
+{
+	int	n;
+
+	n = (int) (void *) number;
+	while (n < 100)
+		n++;
+	return (number);
 }

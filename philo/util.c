@@ -6,7 +6,7 @@
 /*   By: tayou <tayou@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 15:01:29 by tayou             #+#    #+#             */
-/*   Updated: 2023/07/06 23:56:53 by tayou            ###   ########.fr       */
+/*   Updated: 2023/07/07 13:42:39 by tayou            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,3 +46,13 @@ unsigned long long	get_current_time(void)
 		(unsigned long long) (time.tv_usec / 1000);
 	return (current_time);
 }
+
+void	print_philo(unsigned long long start_time, int number, int status)
+{
+	unsigned long long	current_time;
+	unsigned long long	time;
+
+	current_time = get_current_time();
+	time = current_time - start_time;
+	printf("%llu %llu
+

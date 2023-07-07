@@ -1,30 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo.c                                            :+:      :+:    :+:   */
+/*   ft_philo_thread.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tayou <tayou@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/03 12:45:13 by tayou             #+#    #+#             */
-/*   Updated: 2023/07/07 13:43:01 by tayou            ###   ########.fr       */
+/*   Created: 2023/07/07 13:18:38 by tayou             #+#    #+#             */
+/*   Updated: 2023/07/07 13:34:54 by tayou            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	main(int argc, char **argv)
+void	*ft_philo_thread(void *philo)
 {
-	t_data all;
-
-	if (check_exception_exist(argc, argv, &all) == TRUE)
-		return (0);
-	if (create_data_managed_in_main(&all) == FALSE)
-		return (1);
-	if (make_philo_list(&all) == FALSE)
-		return (1);
-	if (create_philo_thread(&all) == FALSE)
-		return (1);
-	print_data(&all);
-	system("leaks philo");
-	return (0);
-}
+	if (philo->number % 2 == 0)
+		usleep(1000);
+	pthread_mutex_lock(philo->mutex);
+	pthread_mutex_lock(philo->left->mutex);
+	printf("%llu has taken a fork.\n", philo->number);
+	pthread_mutex_lock(philo
