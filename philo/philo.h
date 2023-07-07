@@ -6,7 +6,7 @@
 /*   By: tayou <tayou@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 12:45:24 by tayou             #+#    #+#             */
-/*   Updated: 2023/07/07 13:35:06 by tayou            ###   ########.fr       */
+/*   Updated: 2023/07/07 14:36:44 by tayou            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,13 @@
 # define EATING		1
 # define SLEEPING	2
 # define DEAD		3
+# define TAKE_FORK	4
 
 typedef struct s_philo
 {
-	unsigned long long	number;
-	unsigned long long	lifespan;
-	unsigned long long	*eating_count;
+	int					number;
+	int					lifespan;
+	int					*eating_count;
 	unsigned long long	*last_eating_time;
 	unsigned long long	*start_time;
 	int					status;
@@ -46,11 +47,11 @@ typedef struct s_philo
 
 typedef struct s_argv
 {
-	unsigned long long	philo_number;
-	unsigned long long	lifespan;
-	unsigned long long	eating_time;
-	unsigned long long	sleeping_time;
-	unsigned long long	eating_max;
+	int	philo_number;
+	int	lifespan;
+	int	eating_time;
+	int	sleeping_time;
+	int	eating_max;
 }	t_argv;
 
 typedef struct s_flag
@@ -68,7 +69,7 @@ typedef struct s_data
 	pthread_t			*philo_thread;
 	pthread_t			main_thread;
 	pthread_mutex_t		*mutex;
-	unsigned long long	*eating_count;
+	int					*eating_count;
 	unsigned long long	*last_eating_time;
 	unsigned long long	start_time;
 	int					*fork;
@@ -77,7 +78,7 @@ typedef struct s_data
 }	t_data;
 
 int					check_exception_exist(int argc, char **argv, t_data *all);
-unsigned long long	ft_atoull(char *unsigned_number_string, t_data *all);
+int					ft_atoi(char *unsigned_number_string, t_data *all);
 
 int					create_data_managed_in_main(t_data *all);
 int					make_philo_list(t_data *all);
@@ -89,6 +90,7 @@ void				*ft_main_thread(void *all);
 void				pass_white_space(char *stirng, int *i);
 int					pass_sign(char *string, int *i);
 unsigned long long	get_current_time(void);
+void				print_philo(unsigned long long start, int n, int status);
 
 int					detach_every_philo_thread(t_data *all);
 int					join_every_thread(t_data *all);

@@ -6,7 +6,7 @@
 /*   By: tayou <tayou@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 21:27:27 by tayou             #+#    #+#             */
-/*   Updated: 2023/07/06 23:05:32 by tayou            ###   ########.fr       */
+/*   Updated: 2023/07/07 13:56:54 by tayou            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ t_philo	*add_new_philo(t_philo *new_philo, t_data *all);
 
 int	make_philo_list(t_data *all)
 {
-	t_philo				*new_philo;
-	unsigned long long	i;
+	t_philo	*new_philo;
+	int		i;
 
 	all->philo = (void *) 0;
 	i = 1;

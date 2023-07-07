@@ -6,7 +6,7 @@
 /*   By: tayou <tayou@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 15:01:29 by tayou             #+#    #+#             */
-/*   Updated: 2023/07/07 13:42:39 by tayou            ###   ########.fr       */
+/*   Updated: 2023/07/07 14:20:12 by tayou            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,10 @@ unsigned long long	get_current_time(void)
 	struct timeval		time;
 
 	if (gettimeofday(&time, (void *) 0) == -1)
+	{
+		printf("Error. gettimeofday failed.\n");
 		return (FALSE);
+	}
 	current_time = \
 		(unsigned long long) (time.tv_sec * 1000) + \
 		(unsigned long long) (time.tv_usec / 1000);
@@ -51,8 +54,21 @@ void	print_philo(unsigned long long start_time, int number, int status)
 {
 	unsigned long long	current_time;
 	unsigned long long	time;
+	char				*status_string;
 
 	current_time = get_current_time();
+	if (current_time == FALSE)
+		return ;
 	time = current_time - start_time;
-	printf("%llu %llu
-
+	if (status == THINKING)
+		status_string = "is thinking";
+	else if (status == EATING)
+		status_string = "is eating";
+	else if (status == SLEEPING)
+		status_string = "is sleeping";
+	else if (status == DEAD)
+		status_string = "died";
+	else if (status == TAKE_FORK)
+		status_string = "has taken a fork";
+	printf("%llu %d %s\n", time, number, status_string);
+}

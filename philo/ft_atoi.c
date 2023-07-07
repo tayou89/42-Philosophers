@@ -1,24 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoull.c                                        :+:      :+:    :+:   */
+/*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tayou <tayou@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/05 14:26:56 by tayou             #+#    #+#             */
-/*   Updated: 2023/07/05 21:52:03 by tayou            ###   ########.fr       */
+/*   Created: 2023/07/07 13:50:48 by tayou             #+#    #+#             */
+/*   Updated: 2023/07/07 13:52:00 by tayou            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-unsigned long long	get_number(char *string, int i, t_data *all);
+int	get_number(char *string, int i, t_data *all);
 
-unsigned long long	ft_atoull(char *unsigned_number_string, t_data *all)
+int	ft_atoi(char *unsigned_number_string, t_data *all)
 {
-	unsigned long long	number;
-	char				*string;
-	int					i;
+	int		number;
+	char	*string;
+	int		i;
 
 	string = unsigned_number_string;
 	i = 0;
@@ -28,10 +28,10 @@ unsigned long long	ft_atoull(char *unsigned_number_string, t_data *all)
 	return (number);
 }
 
-unsigned long long	get_number(char *string, int i, t_data *all)
+int	get_number(char *string, int i, t_data *all)
 {
-	unsigned long long	before_number;
-	unsigned long long	after_number;
+	int	before_number;
+	int	after_number;
 
 	if (all->flag.overflow_occur == TRUE)
 		return (0);

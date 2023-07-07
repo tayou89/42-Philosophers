@@ -6,7 +6,7 @@
 /*   By: tayou <tayou@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 22:34:23 by tayou             #+#    #+#             */
-/*   Updated: 2023/07/07 00:31:26 by tayou            ###   ########.fr       */
+/*   Updated: 2023/07/07 13:55:43 by tayou            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,7 @@ int	malloc_data_managed_in_main(t_data *all)
 		(unsigned long long *) malloc(sizeof(unsigned long long) * size);
 	if (all->last_eating_time == (void *) 0)
 		return (FALSE);
-	all->eating_count = \
-		(unsigned long long *) malloc(sizeof(unsigned long long) * size);
+	all->eating_count = (int *) malloc(sizeof(int) * size);
 	if (all->eating_count == (void *) 0)
 		return (FALSE);
 	all->mutex = (pthread_mutex_t *) malloc(sizeof(pthread_mutex_t) * size);
@@ -51,7 +50,7 @@ int	malloc_data_managed_in_main(t_data *all)
 
 int	initialize_data_managed_in_main(t_data *all)
 {
-	unsigned long long	i;
+	int	i;
 
 	i = 0;
 	while (i < all->argv.philo_number)

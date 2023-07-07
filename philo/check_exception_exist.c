@@ -6,7 +6,7 @@
 /*   By: tayou <tayou@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 12:51:21 by tayou             #+#    #+#             */
-/*   Updated: 2023/07/07 13:45:17 by tayou            ###   ########.fr       */
+/*   Updated: 2023/07/07 13:53:56 by tayou            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,14 +81,14 @@ int	check_string_is_positive_number(char *string)
 int	get_argv_data(int argc, char **argv, t_data *all)
 {
 	all->flag.overflow_occur = FALSE;
-	all->argv.philo_number = ft_atoull(argv[1], all);
-	all->argv.lifespan = ft_atoull(argv[2], all);
-	all->argv.eating_time = ft_atoull(argv[3], all);
-	all->argv.sleeping_time = ft_atoull(argv[4], all);
+	all->argv.philo_number = ft_atoi(argv[1], all);
+	all->argv.lifespan = ft_atoi(argv[2], all);
+	all->argv.eating_time = ft_atoi(argv[3], all);
+	all->argv.sleeping_time = ft_atoi(argv[4], all);
 	if (argc == 6)
 	{
 		all->flag.eating_max_exist = TRUE;
-		all->argv.eating_max = ft_atoull(argv[5], all);
+		all->argv.eating_max = ft_atoi(argv[5], all);
 	}
 	else
 		all->flag.eating_max_exist = FALSE;

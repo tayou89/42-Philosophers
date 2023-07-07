@@ -6,7 +6,7 @@
 /*   By: tayou <tayou@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 13:00:30 by tayou             #+#    #+#             */
-/*   Updated: 2023/07/07 13:40:10 by tayou            ###   ########.fr       */
+/*   Updated: 2023/07/07 14:03:49 by tayou            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	monitor_every_philo_alive(void *all)
 {
 	unsigned long long	current_time;
 	unsigned long long	last_eating_time;
-	unsigned long long	i;
+	int					i;
 	t_philo				*philo_list;
 
 	philo_list = all->philo;
@@ -66,7 +66,7 @@ int	monitor_every_philo_alive(void *all)
 
 int	check_every_eating_count_is_eating_max(void *all)
 {
-	unsigned long long 	i;
+	int	i;
 
 	i = 0;
 	while (i < all->argv.philo_number)
