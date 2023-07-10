@@ -6,7 +6,7 @@
 /*   By: tayou <tayou@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 21:27:27 by tayou             #+#    #+#             */
-/*   Updated: 2023/07/10 00:09:34 by tayou            ###   ########.fr       */
+/*   Updated: 2023/07/10 15:07:13 by tayou            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,15 +47,16 @@ t_philo	*make_new_philo(int i, t_data *all)
 	new_philo->number = i;
 	new_philo->state = THINKING;
 	new_philo->fork_count = 0;
-	new_philo->eating_time = &all->argv.eating_time;
-	new_philo->sleeping_time = &all->argv.sleeping_time;
-	new_philo->eating_count = &all->eating_count[i - 1];
+	new_philo->eating_time = all->argv.eating_time;
+	new_philo->sleeping_time = all->argv.sleeping_time;
 	new_philo->simulation_stop = &all->flag.simulation_stop;
-	new_philo->last_eating_time = &all->last_eating_time[i - 1];
-	new->philo->state_mutex = &all->state_mutex[i - 1];
-	new->philo->eating_data_mutex = &all->state_mutex[i - 1];
-	connect_fork_state_and_mutex(i, new_philo, all);
+	new_philo->eating_count = 0;
+	new_philo->last_eating_time = 0;
+	new_philo->state_mutex = &all->state_mutex[i - 1];
+	new_philo->eating_data_mutex = &all->state_mutex[i - 1];
+	new_philo->flag_mutex = &all->flag_mutex[i - 1];
 	new_philo->print_mutex = &all->print_mutex;
+	connect_fork_state_and_mutex(i, new_philo, all);
 	new_philo->left = (void *) 0;
 	new_philo->right = (void *) 0;
 	return (new_philo);

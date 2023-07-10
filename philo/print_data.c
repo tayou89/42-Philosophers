@@ -6,7 +6,7 @@
 /*   By: tayou <tayou@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 20:52:35 by tayou             #+#    #+#             */
-/*   Updated: 2023/07/09 20:02:44 by tayou            ###   ########.fr       */
+/*   Updated: 2023/07/10 14:52:02 by tayou            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,8 @@ void	print_philo_list(t_data *all)
 	{
 		printf("======================philo info=================\n");
 		printf("number: %d\n", philo_list->number);
-		printf("eating_count: %d\n", *(philo_list->eating_count));
-		printf("last_eating_time: %llu\n", *(philo_list->last_eating_time));
+		printf("eating_count: %d\n", philo_list->eating_count);
+		printf("last_eating_time: %llu\n", philo_list->last_eating_time);
 		printf("left_number: %d\n", philo_list->left->number);
 		printf("right_number: %d\n", philo_list->right->number);
 		philo_list = philo_list->right;

@@ -6,7 +6,7 @@
 /*   By: tayou <tayou@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 15:01:29 by tayou             #+#    #+#             */
-/*   Updated: 2023/07/10 00:15:13 by tayou            ###   ########.fr       */
+/*   Updated: 2023/07/10 15:09:53 by tayou            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,12 +66,24 @@ void	print_philo(long long elapsed_time, t_philo *philo)
 {
 	char		*state_string;
 
-	pthread_mutex_lock(philo->print_mutex);
+	pthread_mutex_lock(philo->state_mutex);
+	pthread_mutex_lock(philo->flag_mutex);
 	state_string = get_state_string(philo->state);
+	pthread_mutex_lock(philo->print_mutex);	
 	if (*(philo->simulation_stop) == FALSE
 		|| (*(philo->simulation_stop) == TRUE && philo->state == DEAD))
+	{
+		pthread_mutex_unlock(philo->state_mutex);
+		pthread_mutex_unlock(philo->flag_mutex);
 		printf("%llu %d %s\n", elapsed_time, philo->number, state_string);
-	pthread_mutex_unlock(philo->print_mutex);
+		pthread_mutex_unlock(philo->print_mutex);
+	}
+	else
+	{
+		pthread_mutex_unlock(philo->print_mutex);
+		pthread_mutex_unlock(philo->state_mutex);
+		pthread_mutex_unlock(philo->flag_mutex);
+	}
 }
 
 char	*get_state_string(int philo_state)

@@ -6,7 +6,7 @@
 /*   By: tayou <tayou@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 12:45:24 by tayou             #+#    #+#             */
-/*   Updated: 2023/07/10 00:33:53 by tayou            ###   ########.fr       */
+/*   Updated: 2023/07/10 15:02:19 by tayou            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,16 +45,17 @@ typedef struct s_philo
 	int					fork_count;
 	int					eating_time;
 	int					sleeping_time;
-	int					*eating_count;
+	int					eating_count;
 	int					*simulation_stop;
-	unsigned long long	*last_eating_time;
-	unsigned long long	*start_time;
 	int					*left_fork_state;
 	int					*right_fork_state;
+	unsigned long long	last_eating_time;
+	unsigned long long	start_time;
 	pthread_mutex_t		*left_fork_mutex;
 	pthread_mutex_t		*right_fork_mutex;
 	pthread_mutex_t		*state_mutex;
-	pthread_mutex_t		*eating_data_mutex;;
+	pthread_mutex_t		*eating_data_mutex;
+	pthread_mutex_t		*flag_mutex;
 	pthread_mutex_t		*print_mutex;
 	struct s_philo		*left;
 	struct s_philo		*right;
@@ -88,9 +89,8 @@ typedef struct s_data
 	pthread_mutex_t		*fork_mutex;
 	pthread_mutex_t		*eating_data_mutex;
 	pthread_mutex_t		*state_mutex;
+	pthread_mutex_t		*flag_mutex;
 	pthread_mutex_t		print_mutex;
-	int					*eating_count;
-	unsigned long long	*last_eating_time;
 	unsigned long long	start_time;
 }	t_data;
 
@@ -113,10 +113,13 @@ int					pass_sign(char *string, int *i);
 unsigned long long	get_current_time(void);
 long long			get_elapsed_time(unsigned long long start_time);
 void				print_philo(long long elapsed_time, t_philo *philo);
+void				change_philo_state(int state, t_philo *philo);
 
-void				detach_every_thread(t_data *all);
 int					join_every_thread(t_data *all);
-int					join_every_philo_thread(t_data *all);
+void				lock_mutex_array(pthread_mutex_t *mutex, t_data *all);
+void				unlock_mutex_array(pthread_mutex_t *mutex, t_data *all);
+void				destroy_mutex_array(pthread_mutex_t *mutex, t_data *all);
+void				destroy_every_mutex(t_data *all);
 
 void				print_data(t_data *all);
 void				check_mutex_connection(t_data *all);

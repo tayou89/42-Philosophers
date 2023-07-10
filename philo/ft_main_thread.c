@@ -6,7 +6,7 @@
 /*   By: tayou <tayou@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 13:00:30 by tayou             #+#    #+#             */
-/*   Updated: 2023/07/10 00:18:31 by tayou            ###   ########.fr       */
+/*   Updated: 2023/07/10 14:09:00 by tayou            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,11 @@ void	*ft_main_thread(void *data)
 		if (dead_philo != (void *) 0)
 			take_dying_routine(dead_philo, all);
 		if (check_mendatory_eating_count_achieved(all) == TRUE)
+		{
+			lock_mutex_array(all->flag_mutex, all);
 			all->flag.simulation_stop = TRUE;
+			lock_mutex_array(all->flag_mutex, all);
+		}
 	}
 	return (data);
 }
@@ -37,7 +41,6 @@ void	*ft_main_thread(void *data)
 t_philo *find_dead_philo(t_data *all)
 {
 	long long	elapsed_time_from_last_meal;
-	long long	elapsed_time_from_start;
 	t_philo		*philo;
 	int			i;
 
@@ -45,10 +48,8 @@ t_philo *find_dead_philo(t_data *all)
 	i = 0;
 	while (i < all->argv.philo_number)
 	{
-		elapsed_time_from_start = get_elapsed_time(all->start_time);
 		pthread_mutex_lock(philo->eating_data_mutex);
-		elapsed_time_from_last_meal = \
-			elapsed_time_from_start - *(philo->last_eating_time);
+		elapsed_time_from_last_meal = get_elapsed_time(philo->last_eating_time);
 		pthread_mutex_unlock(philo->eating_data_mutex);
 		if (elapsed_time_from_last_meal > (long long) all->argv.lifespan)
 			return (philo);
@@ -62,7 +63,9 @@ void	take_dying_routine(t_philo *dead_philo, t_data *all)
 {
 	long long	elapsed_time;
 
+	lock_mutex_array(all->flag_mutex, all);
 	all->flag.simulation_stop = TRUE;
+	unlock_mutex_array(all->flag_mutex, all);
 	change_philo_state(DEAD, dead_philo);
 	elapsed_time = get_elapsed_time(all->start_time);
 	print_philo(elapsed_time, dead_philo);
@@ -70,16 +73,36 @@ void	take_dying_routine(t_philo *dead_philo, t_data *all)
 
 int	check_mendatory_eating_count_achieved(t_data *all)
 {
-	int	i;
+	t_philo	*philo;
+	int		i;
 
 	if (all->flag.mendatory_eating_count_exist == FALSE)
 		return (FALSE);
+	philo = all->philo;
 	i = 0;
 	while (i < all->argv.philo_number)
 	{
-		if (all->eating_count[i] < all->argv.mendatory_eating_count)
+		pthread_mutex_lock(philo->eating_data_mutex);
+		if (philo->eating_count < all->argv.mendatory_eating_count)
+		{
+			pthread_mutex_unlock(philo->eating_data_mutex);
 			return (FALSE);
+		}
+		pthread_mutex_unlock(philo->eating_data_mutex);
+		philo = philo->right;
 		i++;
 	}
 	return (TRUE);
+}
+
+void	lock_mutex_array(pthread_mutex_t *mutex, t_data *all)
+{
+	int	i;
+
+	i = 0;
+	while (i < all->argv.philo_number)
+	{
+		pthread_mutex_lock(&mutex[i]);
+		i++;
+	}
 }

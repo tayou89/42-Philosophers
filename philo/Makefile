@@ -6,7 +6,7 @@
 #    By: tayou <tayou@student.42seoul.kr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/03 11:43:27 by tayou             #+#    #+#              #
-#    Updated: 2023/07/09 23:16:12 by tayou            ###   ########.fr        #
+#    Updated: 2023/07/10 15:35:06 by tayou            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,7 @@ FILE_NAME = philo \
 			create_philo_thread ft_main_thread ft_philo_thread \
 			take_fork put_down_fork take_philo_routine \
 			util \
-			free_thread \
+			free_thread_and_mutex \
 			print_data
 
 SOURCE_FILE = $(addsuffix .c, $(FILE_NAME))
@@ -41,7 +41,7 @@ fclean : clean
 re : fclean all
 
 $(NAME) : $(SOURCE_FILE)
-	$(CC) $(CCFLAGS) -o $(NAME) $^ -g -fsanitize=thread
+	$(CC) $(CCFLAGS) -o $(NAME) $^
 	
 %.o : %.c
 	$(CC) $(CCFLAGS) -o $@ -c $< 

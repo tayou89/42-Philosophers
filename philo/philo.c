@@ -6,7 +6,7 @@
 /*   By: tayou <tayou@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 12:45:13 by tayou             #+#    #+#             */
-/*   Updated: 2023/07/09 23:34:49 by tayou            ###   ########.fr       */
+/*   Updated: 2023/07/10 15:35:05 by tayou            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,5 +29,6 @@ int	main(int argc, char **argv)
 		return (1);
 	if (join_every_thread(&all) == FALSE)
 		return (1);
+	system("leaks philo");
 	return (0);
 }
