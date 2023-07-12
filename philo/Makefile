@@ -6,7 +6,7 @@
 #    By: tayou <tayou@student.42seoul.kr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/03 11:43:27 by tayou             #+#    #+#              #
-#    Updated: 2023/07/10 15:35:06 by tayou            ###   ########.fr        #
+#    Updated: 2023/07/12 12:56:27 by tayou            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,7 +40,7 @@ fclean : clean
 
 re : fclean all
 
-$(NAME) : $(SOURCE_FILE)
+$(NAME) : $(OBJECT_FILE)
 	$(CC) $(CCFLAGS) -o $(NAME) $^
 	
 %.o : %.c

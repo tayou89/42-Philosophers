@@ -6,7 +6,7 @@
 /*   By: tayou <tayou@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 16:13:42 by tayou             #+#    #+#             */
-/*   Updated: 2023/07/10 15:04:09 by tayou            ###   ########.fr       */
+/*   Updated: 2023/07/12 13:31:06 by tayou            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,24 +23,26 @@ void	take_fork(t_philo *philo)
 
 void	take_left_fork(t_philo *philo)
 {
-	long long	elapsed_time;
-
 	pthread_mutex_lock(philo->left_fork_mutex);
-	*(philo->left_fork_state) = NOT_AVAILABLE;
+	if (*(philo->left_fork_state) == NOT_AVAILABLE)
+		return ;
+	else
+		*(philo->left_fork_state) = NOT_AVAILABLE;
 	philo->fork_count++;
 	change_philo_state(TAKE_FORK, philo);
-	elapsed_time = get_elapsed_time(philo->start_time);
-	print_philo(elapsed_time, philo);
+	print_philo(philo);
 }
 
 void	take_right_fork(t_philo *philo)
 {
-	long long	elapsed_time;
-
+	if (philo->right_fork_mutex == (void *) 0)
+		return ;
 	pthread_mutex_lock(philo->right_fork_mutex);
-	*(philo->right_fork_state) = NOT_AVAILABLE;
+	if (*(philo->right_fork_state) == NOT_AVAILABLE)
+		return ;
+	else
+		*(philo->right_fork_state) = NOT_AVAILABLE;
 	philo->fork_count++;
 	change_philo_state(TAKE_FORK, philo);
-	elapsed_time = get_elapsed_time(philo->start_time);
-	print_philo(elapsed_time, philo);
+	print_philo(philo);
 }

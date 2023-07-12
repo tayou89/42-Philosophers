@@ -6,7 +6,7 @@
 /*   By: tayou <tayou@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 12:45:24 by tayou             #+#    #+#             */
-/*   Updated: 2023/07/10 15:02:19 by tayou            ###   ########.fr       */
+/*   Updated: 2023/07/12 13:32:15 by tayou            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ void				pass_white_space(char *stirng, int *i);
 int					pass_sign(char *string, int *i);
 unsigned long long	get_current_time(void);
 long long			get_elapsed_time(unsigned long long start_time);
-void				print_philo(long long elapsed_time, t_philo *philo);
+void				print_philo(t_philo *philo);
 void				change_philo_state(int state, t_philo *philo);
 
 int					join_every_thread(t_data *all);

@@ -6,7 +6,7 @@
 /*   By: tayou <tayou@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 15:01:29 by tayou             #+#    #+#             */
-/*   Updated: 2023/07/10 15:09:53 by tayou            ###   ########.fr       */
+/*   Updated: 2023/07/12 13:30:48 by tayou            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,9 @@ long long get_elapsed_time(unsigned long long start_time)
 	return (elapsed_time);
 }
 
-void	print_philo(long long elapsed_time, t_philo *philo)
+void	print_philo(t_philo *philo)
 {
+	long long	elapsed_time;
 	char		*state_string;
 
 	pthread_mutex_lock(philo->state_mutex);
@@ -75,6 +76,7 @@ void	print_philo(long long elapsed_time, t_philo *philo)
 	{
 		pthread_mutex_unlock(philo->state_mutex);
 		pthread_mutex_unlock(philo->flag_mutex);
+		elapsed_time = get_elapsed_time(philo->start_time);
 		printf("%llu %d %s\n", elapsed_time, philo->number, state_string);
 		pthread_mutex_unlock(philo->print_mutex);
 	}

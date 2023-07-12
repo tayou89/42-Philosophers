@@ -6,7 +6,7 @@
 /*   By: tayou <tayou@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 21:27:27 by tayou             #+#    #+#             */
-/*   Updated: 2023/07/10 15:07:13 by tayou            ###   ########.fr       */
+/*   Updated: 2023/07/12 11:36:47 by tayou            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,12 +65,16 @@ t_philo	*make_new_philo(int i, t_data *all)
 void	connect_fork_state_and_mutex(int i, t_philo *new_philo, t_data *all)
 {
 	new_philo->left_fork_state = &all->fork[i - 1].state;
-	if (new_philo->number == all->argv.philo_number)
+	if (all->argv.philo_number == 1)
+		new_philo->right_fork_state = NOT_AVAILABLE;
+	else if (new_philo->number == all->argv.philo_number)
 		new_philo->right_fork_state = &all->fork[0].state;
 	else
 		new_philo->right_fork_state = &all->fork[i].state;
 	new_philo->left_fork_mutex = &all->fork_mutex[i - 1];
-	if (new_philo->number == all->argv.philo_number)
+	if (all->argv.philo_number == 1)
+		new_philo->right_fork_mutex = (void *) 0;
+	else if (new_philo->number == all->argv.philo_number)
 		new_philo->right_fork_mutex = &all->fork_mutex[0];
 	else
 		new_philo->right_fork_mutex = &all->fork_mutex[i];

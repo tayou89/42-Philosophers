@@ -6,7 +6,7 @@
 /*   By: tayou <tayou@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 23:29:41 by tayou             #+#    #+#             */
-/*   Updated: 2023/07/10 15:06:05 by tayou            ###   ########.fr       */
+/*   Updated: 2023/07/12 13:10:24 by tayou            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ int	create_philo_thread(t_data *all)
 	int		i;
 
 	philo = all->philo;
+	
 	all->flag.simulation_stop = FALSE;
 	i = 0;
 	while (i < all->argv.philo_number)

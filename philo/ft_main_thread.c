@@ -6,7 +6,7 @@
 /*   By: tayou <tayou@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 13:00:30 by tayou             #+#    #+#             */
-/*   Updated: 2023/07/10 14:09:00 by tayou            ###   ########.fr       */
+/*   Updated: 2023/07/12 13:34:44 by tayou            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	*ft_main_thread(void *data)
 		{
 			lock_mutex_array(all->flag_mutex, all);
 			all->flag.simulation_stop = TRUE;
-			lock_mutex_array(all->flag_mutex, all);
+			unlock_mutex_array(all->flag_mutex, all);
 		}
 	}
 	return (data);
@@ -61,14 +61,13 @@ t_philo *find_dead_philo(t_data *all)
 
 void	take_dying_routine(t_philo *dead_philo, t_data *all)
 {
-	long long	elapsed_time;
 
 	lock_mutex_array(all->flag_mutex, all);
 	all->flag.simulation_stop = TRUE;
 	unlock_mutex_array(all->flag_mutex, all);
 	change_philo_state(DEAD, dead_philo);
-	elapsed_time = get_elapsed_time(all->start_time);
-	print_philo(elapsed_time, dead_philo);
+	print_philo(dead_philo);
+	destroy_every_mutex(all);
 }
 
 int	check_mendatory_eating_count_achieved(t_data *all)
@@ -85,6 +84,8 @@ int	check_mendatory_eating_count_achieved(t_data *all)
 		pthread_mutex_lock(philo->eating_data_mutex);
 		if (philo->eating_count < all->argv.mendatory_eating_count)
 		{
+			pthread_mutex_lock(&all->print_mutex);
+			pthread_mutex_unlock(&all->print_mutex);
 			pthread_mutex_unlock(philo->eating_data_mutex);
 			return (FALSE);
 		}
