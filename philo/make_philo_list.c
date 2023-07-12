@@ -6,7 +6,7 @@
 /*   By: tayou <tayou@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 21:27:27 by tayou             #+#    #+#             */
-/*   Updated: 2023/07/12 11:36:47 by tayou            ###   ########.fr       */
+/*   Updated: 2023/07/12 13:51:24 by tayou            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ t_philo	*make_new_philo(int i, t_data *all)
 	new_philo->eating_count = 0;
 	new_philo->last_eating_time = 0;
 	new_philo->state_mutex = &all->state_mutex[i - 1];
-	new_philo->eating_data_mutex = &all->state_mutex[i - 1];
+	new_philo->eating_data_mutex = &all->eating_data_mutex[i - 1];
 	new_philo->flag_mutex = &all->flag_mutex[i - 1];
 	new_philo->print_mutex = &all->print_mutex;
 	connect_fork_state_and_mutex(i, new_philo, all);
