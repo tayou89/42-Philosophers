@@ -6,7 +6,7 @@
 /*   By: tayou <tayou@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 13:00:30 by tayou             #+#    #+#             */
-/*   Updated: 2023/07/12 13:34:44 by tayou            ###   ########.fr       */
+/*   Updated: 2023/07/12 14:43:55 by tayou            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,8 +84,6 @@ int	check_mendatory_eating_count_achieved(t_data *all)
 		pthread_mutex_lock(philo->eating_data_mutex);
 		if (philo->eating_count < all->argv.mendatory_eating_count)
 		{
-			pthread_mutex_lock(&all->print_mutex);
-			pthread_mutex_unlock(&all->print_mutex);
 			pthread_mutex_unlock(philo->eating_data_mutex);
 			return (FALSE);
 		}
