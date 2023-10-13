@@ -6,7 +6,7 @@
 #    By: tayou <tayou@student.42seoul.kr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/13 13:15:02 by tayou             #+#    #+#              #
-#    Updated: 2023/07/21 12:59:53 by tayou            ###   ########.fr        #
+#    Updated: 2023/07/31 15:36:33 by tayou            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ FILE_NAME = philo \
 			execute_philo_process take_philo_routine \
 			execute_parent_process \
 			ft_semaphore ft_thread \
-			util print_philo
+			util print_philo ft_itoa ft_strjoin
 
 SOURCE_FILE = $(addsuffix _bonus.c, $(FILE_NAME))
 OBJECT_FILE = $(addsuffix _bonus.o, $(FILE_NAME))

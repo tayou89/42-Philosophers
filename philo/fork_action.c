@@ -6,7 +6,7 @@
 /*   By: tayou <tayou@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 14:23:09 by tayou             #+#    #+#             */
-/*   Updated: 2023/07/16 23:58:20 by tayou            ###   ########.fr       */
+/*   Updated: 2023/07/22 18:34:42 by tayou            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,10 @@
 
 void	take_left_fork(t_philo *philo)
 {
-	pthread_mutex_lock(philo->left_fork_mutex);
-	if (*(philo->left_fork_state) == NOT_AVAILABLE)
+	if (philo->fork_count == 1)
 		return ;
-	else
-		*(philo->left_fork_state) = NOT_AVAILABLE;
+	pthread_mutex_lock(philo->left_fork_mutex);
+	*(philo->left_fork_state) = NOT_AVAILABLE;
 	philo->fork_count++;
 	print_philo(TAKE_FORK, philo);
 }
@@ -28,10 +27,7 @@ void	take_right_fork(t_philo *philo)
 	if (philo->right_fork_mutex == (void *) 0)
 		return ;
 	pthread_mutex_lock(philo->right_fork_mutex);
-	if (*(philo->right_fork_state) == NOT_AVAILABLE)
-		return ;
-	else
-		*(philo->right_fork_state) = NOT_AVAILABLE;
+	*(philo->right_fork_state) = NOT_AVAILABLE;
 	philo->fork_count++;
 	print_philo(TAKE_FORK, philo);
 }

@@ -6,7 +6,7 @@
 /*   By: tayou <tayou@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/14 12:14:28 by tayou             #+#    #+#             */
-/*   Updated: 2023/07/19 14:33:15 by tayou            ###   ########.fr       */
+/*   Updated: 2023/07/31 14:20:27 by tayou            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,6 @@ void	create_philo_process(t_data *all)
 		if (all->pid[i] == 0)
 		{
 			all->philo.number = i + 1;
-			all->philo.start_time = all->start_time;
-			all->philo.last_eating_time = all->start_time;
 			execute_philo_process(&all->philo);
 			break ;
 		}
