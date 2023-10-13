@@ -6,7 +6,7 @@
 #    By: tayou <tayou@student.42seoul.kr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/13 13:15:02 by tayou             #+#    #+#              #
-#    Updated: 2023/07/31 15:31:18 by tayou            ###   ########.fr        #
+#    Updated: 2023/07/17 00:30:01 by tayou            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,6 +15,8 @@ CC = cc
 CCFLAGS = -Wall -Wextra -Werror
 RM = rm
 RMFLAGS = -rf
+LIBFT = ./libft/libft.a
+LIBFT_DIR = ./libft
 FILE_NAME = philo \
 			check_exception ft_atoi \
 			create_data \
@@ -22,7 +24,7 @@ FILE_NAME = philo \
 			execute_philo_process take_philo_routine \
 			execute_parent_process \
 			ft_semaphore ft_thread \
-			util print_philo ft_itoa ft_strjoin
+			util print_philo
 
 SOURCE_FILE = $(addsuffix _bonus.c, $(FILE_NAME))
 OBJECT_FILE = $(addsuffix _bonus.o, $(FILE_NAME))

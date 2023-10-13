@@ -6,7 +6,7 @@
 /*   By: tayou <tayou@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 12:45:24 by tayou             #+#    #+#             */
-/*   Updated: 2023/07/31 15:07:34 by tayou            ###   ########.fr       */
+/*   Updated: 2023/07/17 00:18:18 by tayou            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,6 @@ typedef struct s_data
 	pthread_mutex_t		*flag_mutex;
 	pthread_mutex_t		print_mutex;
 	unsigned long long	start_time;
-	int					exit_status;
 }	t_data;
 
 int					check_exception_exist(int argc, char **argv, t_data *all);
@@ -113,7 +112,7 @@ unsigned long long	get_current_time(void);
 long long			get_elapsed_time(unsigned long long start_time);
 void				print_philo(int state, t_philo *philo);
 
-void				join_every_thread(t_data *all);
+int					join_every_thread(t_data *all);
 void				lock_mutex_array(pthread_mutex_t *mutex, t_data *all);
 void				unlock_mutex_array(pthread_mutex_t *mutex, t_data *all);
 void				destroy_mutex_array(pthread_mutex_t *mutex, t_data *all);

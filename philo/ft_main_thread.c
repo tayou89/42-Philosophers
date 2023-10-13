@@ -6,7 +6,7 @@
 /*   By: tayou <tayou@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 13:00:30 by tayou             #+#    #+#             */
-/*   Updated: 2023/07/31 14:59:05 by tayou            ###   ########.fr       */
+/*   Updated: 2023/07/17 00:07:19 by tayou            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ void	take_dying_routine(t_philo *dead_philo, t_data *all)
 	all->flag.simulation_stop = TRUE;
 	unlock_mutex_array(all->flag_mutex, all);
 	print_philo(DEAD, dead_philo);
+	destroy_every_mutex(all);
 }
 
 int	check_mendatory_eating_count_achieved(t_data *all)

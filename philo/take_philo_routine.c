@@ -6,7 +6,7 @@
 /*   By: tayou <tayou@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 15:10:57 by tayou             #+#    #+#             */
-/*   Updated: 2023/07/22 18:22:37 by tayou            ###   ########.fr       */
+/*   Updated: 2023/07/16 23:56:35 by tayou            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,11 @@ void	philo_eat(t_philo *philo)
 void	philo_sleep(t_philo *philo)
 {
 	print_philo(SLEEPING, philo);
-	put_down_right_fork(philo);
-	put_down_left_fork(philo);
 	pthread_mutex_lock(philo->eating_data_mutex);
 	philo->eating_count++;
 	pthread_mutex_unlock(philo->eating_data_mutex);
+	put_down_right_fork(philo);
+	put_down_left_fork(philo);
 	pass_time(philo->sleeping_time);
 }
 

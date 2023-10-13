@@ -6,85 +6,48 @@
 /*   By: tayou <tayou@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/16 18:52:19 by tayou             #+#    #+#             */
-/*   Updated: 2023/07/31 15:24:08 by tayou            ###   ########.fr       */
-/*   Updated: 2023/07/24 02:44:40 by tayou            ###   ########.fr       */
+/*   Updated: 2023/07/17 00:25:34 by tayou            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_bonus.h"
 
-void	create_child_process(int i, t_data *all);
-void	create_monitoring_thread(t_data *all);
 void	wait_philo_process(t_data *all);
-void	join_monitoring_thread(t_data *all);
 
 void	execute_parent_process(int i, t_data *all)
 {
 	if (i < all->argv.philo_number - 1)
-		create_child_process(i, all);
+	{
+		all->pid[i + 1] = fork();
+		if (all->pid[i + 1] == -1)
+			exit(FORK_ERROR);
+	}
 	else
 	{
-		create_monitoring_thread(all);
+		create_thread(ft_monitoring_death, all);
+		create_thread(ft_monitoring_full, all);
 		wait_philo_process(all);
-		join_monitoring_thread(all);
-		close_every_semaphore(all);
-		exit(all->exit_status);
+		free_every_semaphore(all);
+		exit(0);
 	}
-}
-
-void	create_child_process(int i, t_data *all)
-{
-	all->pid[i + 1] = fork();
-	if (all->pid[i + 1] == -1)
-	{
-		post_semaphore(all->semaphore.stop_simulation, all->argv.philo_number);
-		all->exit_status = FORK_ERROR;
-	}
-}
-
-void	create_monitoring_thread(t_data *all)
-{
-	if (pthread_create(&all->thread.monitoring_death, (void *) 0, \
-		ft_monitoring_death_occur, (void *) all) != 0)
-	{
-		post_semaphore(all->semaphore.stop_simulation, all->argv.philo_number);
-		all->exit_status = THREAD_ERROR;
-		return ;
-	}
-	if (all->flag.mendatory_eating_count_exist == FALSE)
-		return ;
-	if (pthread_create(&all->thread.monitoring_full, (void *) 0, \
-		ft_monitoring_everyone_full, (void *) all) != 0)
-	{
-		sem_post(all->semaphore.death);
-		all->exit_status = THREAD_ERROR;
-	}
-}
-
-void	join_monitoring_thread(t_data *all)
-{
-	pthread_join(all->thread.monitoring_death, (void *) 0);
-	if (all->flag.mendatory_eating_count_exist == TRUE)
-		pthread_join(all->thread.monitoring_full, (void *) 0);
 }
 
 void	wait_philo_process(t_data *all)
 {
-	int	philo_number;
 	int	exit_status;
 	int	i;
 
-	philo_number = all->argv.philo_number;
+	exit_status = 0;
 	i = 0;
-	while (i < philo_number)
+	while (i < all->argv.philo_number)
 	{
 		waitpid(-1, &exit_status, 0);
 		if (exit_status != 0)
 		{
-			all->exit_status = exit_status;
-			sem_post(all->semaphore.death);
+			free_every_semaphore(all);
+			kill(0, SIGINT);
+			exit(WEXITSTATUS(exit_status));
 		}
 		i++;
 	}
-	free(all->pid);
 }

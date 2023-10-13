@@ -6,7 +6,7 @@
 /*   By: tayou <tayou@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/14 11:30:39 by tayou             #+#    #+#             */
-/*   Updated: 2023/07/31 14:30:06 by tayou            ###   ########.fr       */
+/*   Updated: 2023/07/17 00:02:31 by tayou            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,8 @@ unsigned long long	get_current_time(void)
 	unsigned long long	current_time;
 	struct timeval		time;
 
-	gettimeofday(&time, (void *) 0);
+	if (gettimeofday(&time, (void *) 0) == -1)
+		exit(TIME_ERROR);
 	current_time = \
 		(unsigned long long)(time.tv_sec * 1000) + \
 		(unsigned long long)(time.tv_usec / 1000);

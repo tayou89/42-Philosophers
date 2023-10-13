@@ -6,23 +6,26 @@
 /*   By: tayou <tayou@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 12:10:09 by tayou             #+#    #+#             */
-/*   Updated: 2023/07/22 18:39:58 by tayou            ###   ########.fr       */
+/*   Updated: 2023/07/16 23:52:25 by tayou            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	join_every_thread(t_data *all)
+int	join_every_thread(t_data *all)
 {
 	int	i;
 
 	i = 0;
 	while (i < all->argv.philo_number)
 	{
-		pthread_join(all->philo_thread[i], (void *) 0);
+		if (pthread_detach(all->philo_thread[i]) != 0)
+			return (FALSE);
 		i++;
 	}
-	pthread_join(all->main_thread, (void *) 0);
+	if (pthread_join(all->main_thread, (void *) 0) != 0)
+		return (FALSE);
+	return (TRUE);
 }
 
 void	unlock_mutex_array(pthread_mutex_t *mutex, t_data *all)
