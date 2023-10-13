@@ -6,7 +6,7 @@
 /*   By: tayou <tayou@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/14 11:55:28 by tayou             #+#    #+#             */
-/*   Updated: 2023/07/16 23:32:59 by tayou            ###   ########.fr       */
+/*   Updated: 2023/07/19 14:26:36 by tayou            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void	make_semaphore_setting(t_data *all)
 {
 	all->semaphore.fork = create_semaphore("fork", all->argv.philo_number);
 	all->semaphore.print = create_semaphore("print", 1);
+	all->semaphore.eating_data = create_semaphore("eating_data", 1);
 	all->semaphore.full = create_semaphore("full", all->argv.philo_number);
 	all->semaphore.death = create_semaphore("death", 1);
 	lock_semaphore(all->semaphore.full, all->argv.philo_number);
@@ -51,6 +52,7 @@ void	make_philo(t_data *all)
 	all->philo.mendatory_eating_count = all->argv.mendatory_eating_count;
 	all->philo.semaphore.fork = all->semaphore.fork;
 	all->philo.semaphore.print = all->semaphore.print;
+	all->philo.semaphore.eating_data = all->semaphore.eating_data;
 	all->philo.semaphore.full = all->semaphore.full;
 	all->philo.semaphore.death = all->semaphore.death;
 }

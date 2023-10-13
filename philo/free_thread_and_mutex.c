@@ -6,7 +6,7 @@
 /*   By: tayou <tayou@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 12:10:09 by tayou             #+#    #+#             */
-/*   Updated: 2023/07/16 23:52:25 by tayou            ###   ########.fr       */
+/*   Updated: 2023/07/20 13:36:12 by tayou            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	join_every_thread(t_data *all)
 	i = 0;
 	while (i < all->argv.philo_number)
 	{
-		if (pthread_detach(all->philo_thread[i]) != 0)
+		if (pthread_join(all->philo_thread[i], (void *) 0) != 0)
 			return (FALSE);
 		i++;
 	}

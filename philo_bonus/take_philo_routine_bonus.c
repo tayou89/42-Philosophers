@@ -6,7 +6,7 @@
 /*   By: tayou <tayou@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/16 17:45:38 by tayou             #+#    #+#             */
-/*   Updated: 2023/07/17 00:03:48 by tayou            ###   ########.fr       */
+/*   Updated: 2023/07/20 12:02:39 by tayou            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,9 @@ void	take_fork(t_philo *philo)
 
 void	philo_eat(t_philo *philo)
 {
+	sem_wait(philo->semaphore.eating_data);
 	philo->last_eating_time = get_current_time();
+	sem_post(philo->semaphore.eating_data);
 	print_philo(EATING, philo);
 	pass_time(philo->eating_time);
 }

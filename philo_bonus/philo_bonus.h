@@ -6,7 +6,7 @@
 /*   By: tayou <tayou@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/14 11:22:26 by tayou             #+#    #+#             */
-/*   Updated: 2023/07/17 00:20:28 by tayou            ###   ########.fr       */
+/*   Updated: 2023/07/21 12:57:27 by tayou            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ typedef struct s_semaphore
 {
 	sem_t	*fork;
 	sem_t	*print;
+	sem_t	*eating_data;
 	sem_t	*full;
 	sem_t	*death;
 }	t_semaphore;
@@ -69,6 +70,12 @@ typedef struct s_argv
 	int	mendatory_eating_count;
 }	t_argv;
 
+typedef struct s_thread
+{
+	pthread_t	monitoring_death;
+	pthread_t	monitoring_full;
+}	t_thread;
+
 typedef struct s_flag
 {
 	int	mendatory_eating_count_exist;
@@ -80,8 +87,9 @@ typedef struct s_data
 	t_argv				argv;
 	t_flag				flag;
 	pid_t				*pid;
-	t_philo				philo;	
+	t_philo				philo;
 	t_semaphore			semaphore;
+	t_thread			thread;
 	int					fork_count;
 	unsigned long long	start_time;
 }	t_data;
@@ -94,7 +102,6 @@ void				create_philo_process(t_data *all);
 
 void				execute_parent_process(int i, t_data *all);
 void				execute_philo_process(t_philo *philo);
-void				create_monitoring_thread(t_philo *philo);
 void				take_philo_routine(t_philo *philo);
 
 sem_t				*create_semaphore(char *name, int count);
@@ -102,10 +109,9 @@ void				lock_semaphore(sem_t *semaphore, int count);
 void				free_semaphore(char *name, sem_t *semaphore);
 void				free_every_semaphore(t_data *all);
 
-void				create_thread(void *(*function)(void *), void *arg);
-void				*ft_monitoring_philo(void *argv);
-void				*ft_monitoring_death(void *data);
-void				*ft_monitoring_full(void *data);
+void				*ft_monitoring_philo_alive(void *argv);
+void				*ft_monitoring_death_occur(void *data);
+void				*ft_monitoring_everyone_full(void *data);
 
 void				pass_white_space(char *stirng, int *i);
 int					pass_sign(char *string, int *i);

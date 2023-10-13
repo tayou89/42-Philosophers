@@ -6,7 +6,7 @@
 #    By: tayou <tayou@student.42seoul.kr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/13 13:15:02 by tayou             #+#    #+#              #
-#    Updated: 2023/07/17 00:30:01 by tayou            ###   ########.fr        #
+#    Updated: 2023/07/21 12:59:53 by tayou            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,8 +15,6 @@ CC = cc
 CCFLAGS = -Wall -Wextra -Werror
 RM = rm
 RMFLAGS = -rf
-LIBFT = ./libft/libft.a
-LIBFT_DIR = ./libft
 FILE_NAME = philo \
 			check_exception ft_atoi \
 			create_data \
