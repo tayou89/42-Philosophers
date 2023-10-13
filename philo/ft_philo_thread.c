@@ -6,7 +6,7 @@
 /*   By: tayou <tayou@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 13:18:38 by tayou             #+#    #+#             */
-/*   Updated: 2023/07/12 13:04:49 by tayou            ###   ########.fr       */
+/*   Updated: 2023/07/31 14:57:50 by tayou            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ void	*ft_philo_thread(void *philo_structure)
 	while (*(philo->simulation_stop) == FALSE)
 	{
 		pthread_mutex_unlock(philo->flag_mutex);
-		take_fork(philo);
+		take_left_fork(philo);
+		take_right_fork(philo);
 		take_philo_routine(philo);
 		pthread_mutex_lock(philo->flag_mutex);
 	}

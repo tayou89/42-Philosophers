@@ -1,31 +1,45 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   create_data_managed_in_main.c                      :+:      :+:    :+:   */
+/*   create_data.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tayou <tayou@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/06 22:34:23 by tayou             #+#    #+#             */
-/*   Updated: 2023/07/12 13:45:02 by tayou            ###   ########.fr       */
+/*   Created: 2023/07/12 15:01:04 by tayou             #+#    #+#             */
+/*   Updated: 2023/07/22 18:20:36 by tayou            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	malloc_data_managed_in_main(t_data *all);
-int	malloc_mutex_and_thread(t_data *all);
-int	initialize_data_managed_in_main(t_data *all);
+void	initialize_mallocible_data(t_data *all);
+int		malloc_data(t_data *all);
+int		malloc_mutex_and_thread(t_data *all);
+int		initialize_mallocated_data(t_data *all);
 
-int	create_data_managed_in_main(t_data *all)
+int	create_data(t_data *all)
 {
-	if (malloc_data_managed_in_main(all) == FALSE)
+	initialize_mallocible_data(all);
+	if (malloc_data(all) == FALSE)
 		return (FALSE);
-	if (initialize_data_managed_in_main(all) == FALSE)
+	if (initialize_mallocated_data(all) == FALSE)
+		return (FALSE);
+	if (make_philo_list(all) == FALSE)
 		return (FALSE);
 	return (TRUE);
 }
 
-int	malloc_data_managed_in_main(t_data *all)
+void	initialize_mallocible_data(t_data *all)
+{
+	all->philo = (void *) 0;
+	all->fork = (void *) 0;
+	all->philo_thread = (void *) 0;
+	all->fork_mutex = (void *) 0;
+	all->eating_data_mutex = (void *) 0;
+	all->flag_mutex = (void *) 0;
+}
+
+int	malloc_data(t_data *all)
 {
 	int	size;
 
@@ -43,29 +57,24 @@ int	malloc_mutex_and_thread(t_data *all)
 	int	size;
 
 	size = all->argv.philo_number;
+	all->philo_thread = (pthread_t *) malloc(sizeof(pthread_t) * size);
 	all->fork_mutex = \
 		(pthread_mutex_t *) malloc(sizeof(pthread_mutex_t) * size);
-	if (all->fork_mutex == (void *) 0)
-		return (FALSE);
 	all->eating_data_mutex = \
 		(pthread_mutex_t *) malloc(sizeof(pthread_mutex_t) * size);
-	if (all->eating_data_mutex == (void *) 0)
-		return (FALSE);
-	all->state_mutex = \
-		(pthread_mutex_t *) malloc(sizeof(pthread_mutex_t) * size);
-	if (all->state_mutex == (void *) 0)
-		return (FALSE);
 	all->flag_mutex = \
 		(pthread_mutex_t *) malloc(sizeof(pthread_mutex_t) * size);
-	if (all->flag_mutex == (void *) 0)
+	if (all->philo_thread == (void *) 0 || all->fork_mutex == (void *) 0
+		|| all->eating_data_mutex == (void *) 0
+		|| all->flag_mutex == (void *) 0)
+	{
+		free_mallocated_data(all);
 		return (FALSE);
-	all->philo_thread = (pthread_t *) malloc(sizeof(pthread_t) * size);
-	if (all->philo_thread == (void *) 0)
-		return (FALSE);
+	}
 	return (TRUE);
 }
 
-int	initialize_data_managed_in_main(t_data *all)
+int	initialize_mallocated_data(t_data *all)
 {
 	int	i;
 
@@ -77,8 +86,6 @@ int	initialize_data_managed_in_main(t_data *all)
 		if (pthread_mutex_init(&all->fork_mutex[i], (void *) 0) != 0)
 			return (FALSE);
 		if (pthread_mutex_init(&all->eating_data_mutex[i], (void *) 0) != 0)
-			return (FALSE);
-		if (pthread_mutex_init(&all->state_mutex[i], (void *) 0) != 0)
 			return (FALSE);
 		if (pthread_mutex_init(&all->flag_mutex[i], (void *) 0) != 0)
 			return (FALSE);

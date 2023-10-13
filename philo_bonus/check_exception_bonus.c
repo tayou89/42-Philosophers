@@ -1,35 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_exception_exist.c                            :+:      :+:    :+:   */
+/*   check_exception_bonus.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tayou <tayou@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/05 12:51:21 by tayou             #+#    #+#             */
-/*   Updated: 2023/07/12 14:48:13 by tayou            ###   ########.fr       */
+/*   Created: 2023/07/14 11:29:43 by tayou             #+#    #+#             */
+/*   Updated: 2023/07/31 10:51:26 by tayou            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "philo_bonus.h"
 
 int	check_argv_has_exception(int argc, char **argv, t_data *all);
 int	check_argv_is_positive_number(int argc, char **argv);
 int	check_string_is_positive_number(char *string);
 int	get_argv_data(int argc, char **argv, t_data *all);
 
-int	check_exception_exist(int argc, char **argv, t_data *all)
+void	check_exception(int argc, char **argv, t_data *all)
 {
 	if (argc != 5 && argc != 6)
 	{
 		printf("Wrong argument count.\n");
-		return (TRUE);
+		exit(NORMAL_EXIT);
 	}
 	if (check_argv_has_exception(argc, argv, all) == TRUE)
 	{
 		printf("Wrong argument.\n");
-		return (TRUE);
+		exit(NORMAL_EXIT);
 	}
-	return (FALSE);
 }
 
 int	check_argv_has_exception(int argc, char **argv, t_data *all)
@@ -82,7 +81,6 @@ int	check_string_is_positive_number(char *string)
 int	get_argv_data(int argc, char **argv, t_data *all)
 {
 	all->flag.overflow_occur = FALSE;
-	all->flag.simulation_stop = FALSE;
 	all->argv.philo_number = ft_atoi(argv[1], all);
 	all->argv.lifespan = ft_atoi(argv[2], all);
 	all->argv.eating_time = ft_atoi(argv[3], all);
@@ -93,7 +91,10 @@ int	get_argv_data(int argc, char **argv, t_data *all)
 		all->argv.mendatory_eating_count = ft_atoi(argv[5], all);
 	}
 	else
+	{
 		all->flag.mendatory_eating_count_exist = FALSE;
+		all->argv.mendatory_eating_count = 0;
+	}
 	if (all->flag.overflow_occur == TRUE)
 		return (FALSE);
 	else

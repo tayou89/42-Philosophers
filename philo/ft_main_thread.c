@@ -6,13 +6,13 @@
 /*   By: tayou <tayou@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 13:00:30 by tayou             #+#    #+#             */
-/*   Updated: 2023/07/12 14:43:55 by tayou            ###   ########.fr       */
+/*   Updated: 2023/07/31 14:59:05 by tayou            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-t_philo *find_dead_philo(t_data *all);
+t_philo	*find_dead_philo(t_data *all);
 void	take_dying_routine(t_philo *dead_philo, t_data *all);
 int		check_mendatory_eating_count_achieved(t_data *all);
 
@@ -38,7 +38,7 @@ void	*ft_main_thread(void *data)
 	return (data);
 }
 
-t_philo *find_dead_philo(t_data *all)
+t_philo	*find_dead_philo(t_data *all)
 {
 	long long	elapsed_time_from_last_meal;
 	t_philo		*philo;
@@ -61,13 +61,10 @@ t_philo *find_dead_philo(t_data *all)
 
 void	take_dying_routine(t_philo *dead_philo, t_data *all)
 {
-
 	lock_mutex_array(all->flag_mutex, all);
 	all->flag.simulation_stop = TRUE;
 	unlock_mutex_array(all->flag_mutex, all);
-	change_philo_state(DEAD, dead_philo);
-	print_philo(dead_philo);
-	destroy_every_mutex(all);
+	print_philo(DEAD, dead_philo);
 }
 
 int	check_mendatory_eating_count_achieved(t_data *all)

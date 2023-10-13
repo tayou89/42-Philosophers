@@ -6,7 +6,7 @@
 /*   By: tayou <tayou@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 12:45:24 by tayou             #+#    #+#             */
-/*   Updated: 2023/07/12 13:45:06 by tayou            ###   ########.fr       */
+/*   Updated: 2023/07/31 15:07:34 by tayou            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ typedef struct s_fork
 typedef struct s_philo
 {
 	int					number;
-	int					state;
 	int					fork_count;
 	int					eating_time;
 	int					sleeping_time;
@@ -53,14 +52,12 @@ typedef struct s_philo
 	unsigned long long	start_time;
 	pthread_mutex_t		*left_fork_mutex;
 	pthread_mutex_t		*right_fork_mutex;
-	pthread_mutex_t		*state_mutex;
 	pthread_mutex_t		*eating_data_mutex;
 	pthread_mutex_t		*flag_mutex;
 	pthread_mutex_t		*print_mutex;
 	struct s_philo		*left;
 	struct s_philo		*right;
 }	t_philo;
-
 
 typedef struct s_argv
 {
@@ -82,46 +79,47 @@ typedef struct s_data
 {
 	t_argv				argv;
 	t_flag				flag;
-	t_fork				*fork;
 	t_philo				*philo;
+	t_fork				*fork;
 	pthread_t			*philo_thread;
 	pthread_t			main_thread;
 	pthread_mutex_t		*fork_mutex;
 	pthread_mutex_t		*eating_data_mutex;
-	pthread_mutex_t		*state_mutex;
 	pthread_mutex_t		*flag_mutex;
 	pthread_mutex_t		print_mutex;
 	unsigned long long	start_time;
+	int					exit_status;
 }	t_data;
 
 int					check_exception_exist(int argc, char **argv, t_data *all);
 int					ft_atoi(char *unsigned_number_string, t_data *all);
 
-int					create_data_managed_in_main(t_data *all);
+int					create_data(t_data *all);
 int					make_philo_list(t_data *all);
 
 int					create_philo_thread(t_data *all);
 void				*ft_main_thread(void *all);
 void				*ft_philo_thread(void *all);
 
-void				take_fork(t_philo *philo);
-void				put_down_fork(t_philo *philo);
+void				take_left_fork(t_philo *philo);
+void				take_right_fork(t_philo *philo);
+void				put_down_left_fork(t_philo *philo);
+void				put_down_right_fork(t_philo *philo);
 void				take_philo_routine(t_philo *philo);
 
 void				pass_white_space(char *stirng, int *i);
 int					pass_sign(char *string, int *i);
 unsigned long long	get_current_time(void);
 long long			get_elapsed_time(unsigned long long start_time);
-void				print_philo(t_philo *philo);
-void				change_philo_state(int state, t_philo *philo);
+void				print_philo(int state, t_philo *philo);
 
-int					join_every_thread(t_data *all);
+void				join_every_thread(t_data *all);
 void				lock_mutex_array(pthread_mutex_t *mutex, t_data *all);
 void				unlock_mutex_array(pthread_mutex_t *mutex, t_data *all);
 void				destroy_mutex_array(pthread_mutex_t *mutex, t_data *all);
 void				destroy_every_mutex(t_data *all);
 
-void				print_data(t_data *all);
-void				check_mutex_connection(t_data *all);
+void				free_mallocated_data(t_data *all);
+void				free_linked_list(t_philo *philo);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: tayou <tayou@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 21:27:27 by tayou             #+#    #+#             */
-/*   Updated: 2023/07/12 13:51:24 by tayou            ###   ########.fr       */
+/*   Updated: 2023/07/22 18:20:20 by tayou            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,23 @@
 
 t_philo	*make_new_philo(int i, t_data *all);
 t_philo	*add_new_philo(t_philo *new_philo, t_data *all);
-void	connect_fork_state_and_mutex(int i, t_philo *new_philo, t_data *all);
+void	connect_fork_state(int i, t_philo *new_philo, t_data *all);
+void	connect_fork_mutex(int i, t_philo *new_philo, t_data *all);
 
 int	make_philo_list(t_data *all)
 {
 	t_philo	*new_philo;
 	int		i;
 
-	all->philo = (void *) 0;
 	i = 1;
 	while (i <= all->argv.philo_number)
 	{
 		new_philo = make_new_philo(i, all);
 		if (new_philo == (void *) 0)
+		{
+			free_mallocated_data(all);
 			return (FALSE);
+		}
 		if (all->philo == (void *) 0)
 			all->philo = new_philo;
 		else
@@ -45,24 +48,22 @@ t_philo	*make_new_philo(int i, t_data *all)
 	if (new_philo == (void *) 0)
 		return ((void *) 0);
 	new_philo->number = i;
-	new_philo->state = THINKING;
 	new_philo->fork_count = 0;
 	new_philo->eating_time = all->argv.eating_time;
 	new_philo->sleeping_time = all->argv.sleeping_time;
 	new_philo->simulation_stop = &all->flag.simulation_stop;
 	new_philo->eating_count = 0;
-	new_philo->last_eating_time = 0;
-	new_philo->state_mutex = &all->state_mutex[i - 1];
 	new_philo->eating_data_mutex = &all->eating_data_mutex[i - 1];
 	new_philo->flag_mutex = &all->flag_mutex[i - 1];
 	new_philo->print_mutex = &all->print_mutex;
-	connect_fork_state_and_mutex(i, new_philo, all);
+	connect_fork_state(i, new_philo, all);
+	connect_fork_mutex(i, new_philo, all);
 	new_philo->left = (void *) 0;
 	new_philo->right = (void *) 0;
 	return (new_philo);
 }
 
-void	connect_fork_state_and_mutex(int i, t_philo *new_philo, t_data *all)
+void	connect_fork_state(int i, t_philo *new_philo, t_data *all)
 {
 	new_philo->left_fork_state = &all->fork[i - 1].state;
 	if (all->argv.philo_number == 1)
@@ -71,6 +72,10 @@ void	connect_fork_state_and_mutex(int i, t_philo *new_philo, t_data *all)
 		new_philo->right_fork_state = &all->fork[0].state;
 	else
 		new_philo->right_fork_state = &all->fork[i].state;
+}
+
+void	connect_fork_mutex(int i, t_philo *new_philo, t_data *all)
+{
 	new_philo->left_fork_mutex = &all->fork_mutex[i - 1];
 	if (all->argv.philo_number == 1)
 		new_philo->right_fork_mutex = (void *) 0;

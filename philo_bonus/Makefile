@@ -5,26 +5,27 @@
 #                                                     +:+ +:+         +:+      #
 #    By: tayou <tayou@student.42seoul.kr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2023/07/03 11:43:27 by tayou             #+#    #+#              #
-#    Updated: 2023/08/02 11:31:36 by tayou            ###   ########.fr        #
+#    Created: 2023/07/13 13:15:02 by tayou             #+#    #+#              #
+#    Updated: 2023/07/31 15:31:18 by tayou            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = philo
+NAME = philo_bonus
 CC = cc
 CCFLAGS = -Wall -Wextra -Werror
 RM = rm
 RMFLAGS = -rf
 FILE_NAME = philo \
-			check_exception_exist ft_atoi \
-			create_data make_philo_list \
-			create_philo_thread ft_main_thread ft_philo_thread \
-			fork_action take_philo_routine \
-			util print_philo \
-			free_thread_and_mutex free_mallocated_data \
+			check_exception ft_atoi \
+			create_data \
+			create_philo_process \
+			execute_philo_process take_philo_routine \
+			execute_parent_process \
+			ft_semaphore ft_thread \
+			util print_philo ft_itoa ft_strjoin
 
-SOURCE_FILE = $(addsuffix .c, $(FILE_NAME))
-OBJECT_FILE = $(addsuffix .o, $(FILE_NAME))
+SOURCE_FILE = $(addsuffix _bonus.c, $(FILE_NAME))
+OBJECT_FILE = $(addsuffix _bonus.o, $(FILE_NAME))
 
 all : $(NAME)
 
