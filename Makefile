@@ -57,21 +57,25 @@ all: $(NAME)
 $(NAME): $(MANDATORY_OBJECTS)
 	$(GCC) $(GCC_FLAGS) -o $(NAME) $^
 
+$(OBJECT_PATH)$(MANDATORY_PATH)%.o: $(SOURCE_PATH)$(MANDATORY_PATH)%.c
+	@mkdir -p $(dir $@)
+	$(GCC) $(GCC_FLAGS) -I$(HEADER_PATH) -o $@ -c $< 
+
 bonus: $(BONUS_NAME)
 
 $(BONUS_NAME): $(BONUS_OBJECTS)
-	$(GCC) $(GCC_FLAGS) -o $(NAME) $^
+	$(GCC) $(GCC_FLAGS) -o $(BONUS_NAME) $^
+
+$(OBJECT_PATH)$(BONUS_PATH)%.o: $(SOURCE_PATH)$(BONUS_PATH)%.c
+	@mkdir -p $(dir $@)
+	$(GCC) $(GCC_FLAGS) -I$(HEADER_PATH) -o $@ -c $< 
 
 clean: 
 	$(RM) $(RM_FLAGS) $(OBJECT_PATH)
 
 fclean: clean
-	$(RM) $(RM_FLAGS) $(NAME)
+	$(RM) $(RM_FLAGS) $(NAME) $(BONUS_NAME)
 
 re: fclean all
-
-	
-%.o: %.c
-	$(GCC) $(GCC_FLAGS) -I$(HEADER_PATH) -o $@ -c $< 
 
 .PHONY : all clean fclean re bonus
